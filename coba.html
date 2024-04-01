@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Utama</title>
+    <style>
+        .center {
+            display: flex;
+            justify-content: center; /* Mengatur posisi horizontal di tengah */
+            align-items: center; /* Mengatur posisi vertikal di tengah */
+            height: 12
+            0vh; /* Menggunakan tinggi viewport untuk mengisi seluruh ketinggian layar */
+        }
+        #carousel img {
+            display: none;
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Selamat datang di Halaman Utama (DOM)</h1>
+    <p>Silakan pilih salah satu tautan di bawah ini:</p>
+    
+    <ul>
+        <li><a href="jsdasar.html">Belajar JavaScript Dasar</a></li>
+        <li><a href="form.html">Form Pendaftaran</a></li>
+        <div id="judul-carousel" class="center">
+            <h3>Ini adalah gambar Carousel</h3>
+        </div>
+        
+    </ul>
+    
+    <div id="carousel" class="center">
+    </div>
+
+    <script>
+        const imageSources = ["asset/1.jfif", "asset/2.jfif", "asset/3.jfif", "asset/4.jfif"];
+        let currentIndex = 0;
+        const carouselContainer = document.getElementById('carousel');
+
+        // Membuat dan menambahkan elemen gambar ke dalam div carousel
+        imageSources.forEach((src, index) => {
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = `Image ${index + 1}`;
+            carouselContainer.appendChild(img);
+        });
+
+        const images = document.querySelectorAll('#carousel img');
+        const totalImages = images.length;
+
+        function showImage(index) {
+            images.forEach((img, i) => {
+                if (i === index) {
+                    img.style.display = 'block';
+                } else {
+                    img.style.display = 'none';
+                }
+            });
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % totalImages;
+            showImage(currentIndex);
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+            showImage(currentIndex);
+        }
+
+        showImage(currentIndex);
+
+        setInterval(nextImage, 3000); // Ganti gambar setiap 3 detik
+    </script>
+</body>
+</html>
